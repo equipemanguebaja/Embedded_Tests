@@ -1,4 +1,3 @@
-﻿// Test code for MTE3018
 #include "mbed.h"
 #define VCC 3.3
 #define R 1000
@@ -12,8 +11,9 @@ int main() {
         
         Vout = (x.read())*VCC;
         
-        T = (log((1843.8/((R*VCC/Vout)-R))))/0.032;
+        //T = ((float) (1.0/0.032)*log((1842.8*(VCC - Vout)/(Vout*R))));
+        T = 115.5*(exp(-0.02187*(Vout*R)/(VCC - Vout))) + 85.97*(exp(-0.00146*(Vout*R)/(VCC - Vout)));
         
-        pc.printf("\r\n%.2f",T);
+        pc.printf("\r\nt = %.2f",T);
     }
 }
